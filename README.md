@@ -35,9 +35,58 @@ Betik `OGVPTS` veritabanını oluşturur ve 13 tabloyu kurar:
 - Yüklenen dosya en fazla 20 MB olabilir.
 - Her teslim ayrı kayıt olarak tutulur; önceki teslimler ve geri bildirimler silinmez.
 
+## Uygulama (Java Spring Boot)
+
+**Teknolojiler:** Java 17+, Spring Boot 3.5, Spring Data JPA (Hibernate), Microsoft SQL Server JDBC sürücüsü, Lombok, Maven.
+
+**Klasör yapısı:**
+
+```
+src/main/java/edu/maltepe/ogvpts/
+├── OgvptsApplication.java      # uygulamanın giriş noktası
+├── model/                      # 13 tablonun JPA entity sınıfları
+│   ├── enums/                  # rol ve durum değerleri (UserRole, MeetingStatus, ...)
+│   └── converter/              # enum ↔ veritabanı değeri dönüşümü (OGRENCI ↔ ogrenci)
+├── repository/                 # her entity için Spring Data JPA repository
+├── config/                     # veritabanı bağlantı kontrolü
+└── controller/                 # REST uç noktaları (/api/health/db)
+src/main/resources/application.properties   # bağlantı ayarları
+```
+
+| Tablo | Model sınıfı |
+|---|---|
+| users | `User` |
+| project_groups | `ProjectGroup` |
+| group_members | `GroupMember` (+ `GroupMemberId` bileşik anahtar) |
+| projects | `Project` |
+| project_milestones | `ProjectMilestone` |
+| project_comments | `ProjectComment` |
+| availability_slots | `AvailabilitySlot` |
+| meetings | `Meeting` |
+| meeting_notes | `MeetingNote` |
+| tasks | `Task` |
+| submissions | `Submission` |
+| feedback | `Feedback` |
+| notifications | `Notification` |
+
+Şema `ogvpts_schema_sqlserver.sql` betiğiyle kurulur; Hibernate tablolara dokunmaz (`ddl-auto=none`).
+
+### Kurulum ve çalıştırma
+
+1. **Veritabanı:** Yukarıdaki adımlarla `OGVPTS` veritabanını oluştur.
+2. **SQL Server ayarları** (bir kez yapılır):
+   - SSMS → sunucuya sağ tık → *Properties → Security* → **SQL Server and Windows Authentication mode** seç.
+   - *Security → Logins → sa* → şifre belirle, *Status* sekmesinden **Login: Enabled** yap.
+   - *SQL Server Configuration Manager → SQL Server Network Configuration → Protocols* → **TCP/IP: Enabled**, *IP Addresses → IPAll → TCP Port = 1433*.
+   - SQL Server servisini yeniden başlat.
+3. **Bağlantı bilgileri:** `src/main/resources/application-local.properties.example` dosyasını aynı klasöre `application-local.properties` adıyla kopyala ve şifreni yaz. Bu dosya git'e gönderilmez.
+4. **Çalıştır:** Projeyi IntelliJ IDEA ile aç (Maven projesi olarak algılanır), `OgvptsApplication` sınıfını çalıştır.
+   Komut satırından: `mvn spring-boot:run`
+5. **Kontrol:** Konsolda `Veritabanı bağlantısı başarılı: OGVPTS ...` satırı görünür. Tarayıcıdan `http://localhost:8080/api/health/db` adresi her tablonun kayıt sayısını döndürür.
+
 ## Çalışma düzeni
 
-- Çalışma 1 haftalık sprintlerle yürütülür: Sprint 1 gereksinim analizi, Sprint 2 diyagramlar, Sprint 3 veritabanı.
+- Çalışma 1 haftalık sprintlerle yürütülür: Sprint 1 gereksinim analizi, Sprint 2 diyagramlar, Sprint 3 veritabanı, Sprint 4 proje altyapısı.
 - Commit mesajları ve dal adları Jira görev anahtarını içerir. Örnekler: `OGVPTS-54: veritabanı şeması eklendi`, `feature/OGVPTS-56-grup-olusturma`.
 
 ## Geliştirici
