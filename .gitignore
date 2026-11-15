@@ -361,3 +361,12 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+# ---------- Java / Spring Boot ----------
+target/
+.idea/
+*.iml
+.vscode/
+.mvn/wrapper/maven-wrapper.jar
+
+# Yerel veritabanı ayarları (şifre içerir)
+src/main/resources/application-local.properties
