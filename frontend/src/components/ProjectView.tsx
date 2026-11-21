@@ -67,7 +67,8 @@ export default function ProjectView({ project, onChange, canEdit = false, canCom
 
       <div className="card mb-3">
         <div className="card-body">
-          <div className="d-flex flex-wrap justify-content-between gap-2 mb-2">
+          {/* align-items-start: flex kutusu varsayılan olarak çocukları dikeyde uzatır; rozetin uzamaması için */}
+          <div className="d-flex flex-wrap justify-content-between align-items-start gap-2 mb-2">
             <div>
               <div className="small text-secondary">
                 {project.groupName} · Danışman: {project.advisorName ?? 'atanmadı'}
