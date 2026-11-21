@@ -370,3 +370,9 @@ target/
 
 # Yerel veritabanı ayarları (şifre içerir)
 src/main/resources/application-local.properties
+
+# Yüklenen teslim dosyaları
+uploads/
+
+# React derleme çıktısı (frontend/ içinde npm run build ile üretilir)
+src/main/resources/static/

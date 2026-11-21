@@ -2,9 +2,6 @@ package edu.maltepe.ogvpts.model;
 
 import edu.maltepe.ogvpts.model.enums.FeedbackDecision;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
@@ -15,9 +12,6 @@ import java.time.LocalDateTime;
  */
 @Entity
 @Table(name = "feedback")
-@Getter
-@Setter
-@NoArgsConstructor
 public class Feedback {
 
     @Id
@@ -41,4 +35,52 @@ public class Feedback {
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Submission getSubmission() {
+        return submission;
+    }
+
+    public void setSubmission(Submission submission) {
+        this.submission = submission;
+    }
+
+    public User getAdvisor() {
+        return advisor;
+    }
+
+    public void setAdvisor(User advisor) {
+        this.advisor = advisor;
+    }
+
+    public FeedbackDecision getDecision() {
+        return decision;
+    }
+
+    public void setDecision(FeedbackDecision decision) {
+        this.decision = decision;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
 }

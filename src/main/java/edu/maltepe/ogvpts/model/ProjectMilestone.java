@@ -2,18 +2,12 @@ package edu.maltepe.ogvpts.model;
 
 import edu.maltepe.ogvpts.model.enums.ProjectStatus;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.time.LocalDate;
 
 /** Tablo: project_milestones — proje aşamaları ve teslim tarihleri (FR-05, FR-06). */
 @Entity
 @Table(name = "project_milestones")
-@Getter
-@Setter
-@NoArgsConstructor
 public class ProjectMilestone {
 
     @Id
@@ -32,4 +26,44 @@ public class ProjectMilestone {
 
     @Column(name = "status", nullable = false, length = 20)
     private ProjectStatus status = ProjectStatus.BASLAMADI;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public LocalDate getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(LocalDate dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    public ProjectStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(ProjectStatus status) {
+        this.status = status;
+    }
 }
