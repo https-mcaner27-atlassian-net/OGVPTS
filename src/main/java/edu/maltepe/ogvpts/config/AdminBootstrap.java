@@ -15,9 +15,13 @@ import org.springframework.stereotype.Component;
 /**
  * İlk kurulum: veritabanında hiç yönetici yoksa ve ADMIN_EMAIL / ADMIN_PASSWORD
  * ayarlanmışsa bir yönetici hesabı oluşturur. Diğer kullanıcıları bu yönetici ekler.
+ *
+ * Demo verisinden (DemoDataSeeder, @Order(1)) SONRA çalışır: demo profili açıksa demo yöneticisi
+ * zaten oluşmuş olur ve bu sınıf hiçbir şey yapmaz. Ters sırada olsaydı, önce burada oluşan yönetici
+ * kullanıcı tablosunu dolduracağı için demo verisi hiç eklenmezdi.
  */
 @Component
-@Order(1)
+@Order(2)
 public class AdminBootstrap implements ApplicationRunner {
 
     private static final Logger log = LoggerFactory.getLogger(AdminBootstrap.class);

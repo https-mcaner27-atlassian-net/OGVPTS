@@ -44,7 +44,7 @@ import java.time.LocalTime;
  */
 @Component
 @Profile("demo")
-@Order(2)
+@Order(1) // AdminBootstrap'tan önce: bkz. AdminBootstrap açıklaması
 public class DemoDataSeeder implements ApplicationRunner {
 
     private static final Logger log = LoggerFactory.getLogger(DemoDataSeeder.class);
