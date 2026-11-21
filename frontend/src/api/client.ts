@@ -87,6 +87,11 @@ async function toApiError(response: Response): Promise<ApiError> {
     const data = await response.json()
     return new ApiError(response.status, data.detail ?? 'Bir hata oluştu.', data.code ?? null, data.fields ?? null)
   } catch {
+    // Gövde JSON değilse hata backend'den değil aradaki katmandan gelmiştir.
+    // 502/503/504: geliştirmede Vite'ın yönlendirmesi (proxy) 8080'e ulaşamadı → backend kapalı.
+    if (response.status === 502 || response.status === 503 || response.status === 504) {
+      return new ApiError(response.status, 'Sunucuya ulaşılamadı. Backend çalışıyor mu?', 'NETWORK', null)
+    }
     const fallback = response.status === 403 ? 'Bu işlem için yetkiniz yok.' : `İstek başarısız (${response.status}).`
     return new ApiError(response.status, fallback, null, null)
   }
