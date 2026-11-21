@@ -37,7 +37,7 @@ Betik `OGVPTS` veritabanını oluşturur ve 13 tabloyu kurar:
 
 ## Uygulama (Java Spring Boot)
 
-**Teknolojiler:** Java 17+, Spring Boot 3.5, Spring Data JPA (Hibernate), Microsoft SQL Server JDBC sürücüsü, Lombok, Maven.
+**Teknolojiler:** Java 17+, Spring Boot 3.5, Spring Data JPA (Hibernate), Microsoft SQL Server JDBC sürücüsü, Maven.
 
 **Klasör yapısı:**
 
@@ -51,6 +51,7 @@ src/main/java/edu/maltepe/ogvpts/
 ├── config/                     # veritabanı bağlantı kontrolü
 └── controller/                 # REST uç noktaları (/api/health/db)
 src/main/resources/application.properties   # bağlantı ayarları
+docs/                                        # belgeler ve diyagramlar
 ```
 
 | Tablo | Model sınıfı |
@@ -71,18 +72,31 @@ src/main/resources/application.properties   # bağlantı ayarları
 
 Şema `ogvpts_schema_sqlserver.sql` betiğiyle kurulur; Hibernate tablolara dokunmaz (`ddl-auto=none`).
 
-### Kurulum ve çalıştırma
+### Kurulum ve çalıştırma (özet)
 
-1. **Veritabanı:** Yukarıdaki adımlarla `OGVPTS` veritabanını oluştur.
-2. **SQL Server ayarları** (bir kez yapılır):
-   - SSMS → sunucuya sağ tık → *Properties → Security* → **SQL Server and Windows Authentication mode** seç.
-   - *Security → Logins → sa* → şifre belirle, *Status* sekmesinden **Login: Enabled** yap.
-   - *SQL Server Configuration Manager → SQL Server Network Configuration → Protocols* → **TCP/IP: Enabled**, *IP Addresses → IPAll → TCP Port = 1433*.
-   - SQL Server servisini yeniden başlat.
-3. **Bağlantı bilgileri:** `src/main/resources/application-local.properties.example` dosyasını aynı klasöre `application-local.properties` adıyla kopyala ve şifreni yaz. Bu dosya git'e gönderilmez.
-4. **Çalıştır:** Projeyi IntelliJ IDEA ile aç (Maven projesi olarak algılanır), `OgvptsApplication` sınıfını çalıştır.
-   Komut satırından: `mvn spring-boot:run`
-5. **Kontrol:** Konsolda `Veritabanı bağlantısı başarılı: OGVPTS ...` satırı görünür. Tarayıcıdan `http://localhost:8080/api/health/db` adresi her tablonun kayıt sayısını döndürür.
+1. `ogvpts_schema_sqlserver.sql` ile `OGVPTS` veritabanını kur.
+2. SQL Server'da **TCP/IP**'yi aç ve servisi **yeniden başlat**.
+3. Uygulama için `ogvpts_app` veritabanı kullanıcısını oluştur.
+4. `application-local.properties.example` dosyasını `application-local.properties` olarak kopyalayıp kullanıcı/şifreyi yaz (git'e gönderilmez).
+5. IntelliJ'de `OgvptsApplication`'ı çalıştır ya da `mvn spring-boot:run`; `http://localhost:8080/api/health/db` → `"status": "OK"`.
+
+Adım adım anlatım ve sık karşılaşılan hatalar: **[docs/kurulum.md](docs/kurulum.md)**
+
+![GET /api/health/db yanıtı](docs/images/health-check.png)
+
+## Belgeler
+
+| | |
+|---|---|
+| [Mimari](docs/mimari.md) | Katmanlar, paket yapısı, tasarım kararları |
+| [Veritabanı](docs/veritabani.md) | ERD, tablolar, iş kurallarının şemadaki karşılığı |
+| [API](docs/api.md) | REST uç noktaları ve örnek yanıtlar |
+| [Kurulum](docs/kurulum.md) | Kurulum, çalıştırma, sorun giderme |
+| [Geliştirme süreci](docs/gelistirme-sureci.md) | Jira sprintleri, dal/commit kuralları, GitHub–Jira entegrasyonu |
+
+![Uygulama mimarisi](docs/images/mimari.png)
+
+![Varlık-İlişki Diyagramı](docs/images/erd.png)
 
 ## Çalışma düzeni
 
