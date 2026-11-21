@@ -1,9 +1,6 @@
 package edu.maltepe.ogvpts.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 /**
  * Tablo: group_members — öğrenci ile grup arasındaki üyelik.
@@ -11,9 +8,6 @@ import lombok.Setter;
  */
 @Entity
 @Table(name = "group_members")
-@Getter
-@Setter
-@NoArgsConstructor
 public class GroupMember {
 
     @EmbeddedId
@@ -33,5 +27,32 @@ public class GroupMember {
         this.group = group;
         this.user = user;
         this.id = new GroupMemberId(group.getId(), user.getId());
+    }
+
+    public GroupMember() {
+    }
+
+    public GroupMemberId getId() {
+        return id;
+    }
+
+    public void setId(GroupMemberId id) {
+        this.id = id;
+    }
+
+    public ProjectGroup getGroup() {
+        return group;
+    }
+
+    public void setGroup(ProjectGroup group) {
+        this.group = group;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

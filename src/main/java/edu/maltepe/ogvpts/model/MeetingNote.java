@@ -1,9 +1,6 @@
 package edu.maltepe.ogvpts.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
@@ -11,9 +8,6 @@ import java.time.LocalDateTime;
 /** Tablo: meeting_notes — görüşme notu ve alınan kararlar; yalnızca ilgili danışman yazar (FR-09, BR-04). */
 @Entity
 @Table(name = "meeting_notes")
-@Getter
-@Setter
-@NoArgsConstructor
 public class MeetingNote {
 
     @Id
@@ -37,4 +31,52 @@ public class MeetingNote {
     @UpdateTimestamp
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Meeting getMeeting() {
+        return meeting;
+    }
+
+    public void setMeeting(Meeting meeting) {
+        this.meeting = meeting;
+    }
+
+    public User getAdvisor() {
+        return advisor;
+    }
+
+    public void setAdvisor(User advisor) {
+        this.advisor = advisor;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public String getDecisions() {
+        return decisions;
+    }
+
+    public void setDecisions(String decisions) {
+        this.decisions = decisions;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 }

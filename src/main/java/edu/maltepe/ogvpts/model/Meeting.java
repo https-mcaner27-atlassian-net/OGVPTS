@@ -2,10 +2,6 @@ package edu.maltepe.ogvpts.model;
 
 import edu.maltepe.ogvpts.model.enums.MeetingStatus;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
@@ -17,9 +13,6 @@ import java.time.LocalDateTime;
  */
 @Entity
 @Table(name = "meetings")
-@Getter
-@Setter
-@NoArgsConstructor
 public class Meeting {
 
     @Id
@@ -49,7 +42,6 @@ public class Meeting {
     private LocalDateTime createdAt;
 
     /** ck_meetings_active kısıtıyla uyumlu kalması için elle değiştirilmez. */
-    @Setter(AccessLevel.NONE)
     @Column(name = "is_active", nullable = false)
     private boolean active;
 
@@ -57,5 +49,65 @@ public class Meeting {
     @PreUpdate
     void syncActiveFlag() {
         this.active = status == MeetingStatus.ONAYLANDI || status == MeetingStatus.TAMAMLANDI;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public AvailabilitySlot getSlot() {
+        return slot;
+    }
+
+    public void setSlot(AvailabilitySlot slot) {
+        this.slot = slot;
+    }
+
+    public ProjectGroup getGroup() {
+        return group;
+    }
+
+    public void setGroup(ProjectGroup group) {
+        this.group = group;
+    }
+
+    public User getRequestedBy() {
+        return requestedBy;
+    }
+
+    public void setRequestedBy(User requestedBy) {
+        this.requestedBy = requestedBy;
+    }
+
+    public String getTopic() {
+        return topic;
+    }
+
+    public void setTopic(String topic) {
+        this.topic = topic;
+    }
+
+    public MeetingStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(MeetingStatus status) {
+        this.status = status;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public boolean isActive() {
+        return active;
     }
 }

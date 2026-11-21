@@ -1,9 +1,6 @@
 package edu.maltepe.ogvpts.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.time.LocalDateTime;
 
@@ -14,9 +11,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "availability_slots",
         uniqueConstraints = @UniqueConstraint(name = "uq_slot_advisor_start", columnNames = {"advisor_id", "start_time"}))
-@Getter
-@Setter
-@NoArgsConstructor
 public class AvailabilitySlot {
 
     @Id
@@ -32,4 +26,36 @@ public class AvailabilitySlot {
 
     @Column(name = "end_time", nullable = false)
     private LocalDateTime endTime;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public User getAdvisor() {
+        return advisor;
+    }
+
+    public void setAdvisor(User advisor) {
+        this.advisor = advisor;
+    }
+
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public LocalDateTime getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(LocalDateTime endTime) {
+        this.endTime = endTime;
+    }
 }

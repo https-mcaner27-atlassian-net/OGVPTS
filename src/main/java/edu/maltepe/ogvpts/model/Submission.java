@@ -2,9 +2,6 @@ package edu.maltepe.ogvpts.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
@@ -16,9 +13,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "submissions",
         uniqueConstraints = @UniqueConstraint(name = "uq_submission_version", columnNames = {"task_id", "version_no"}))
-@Getter
-@Setter
-@NoArgsConstructor
 public class Submission {
 
     /** FR-06: yüklenen dosya en fazla 20 MB (20480 KB). */
@@ -55,4 +49,76 @@ public class Submission {
     @CreationTimestamp
     @Column(name = "submitted_at", nullable = false, updatable = false)
     private LocalDateTime submittedAt;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Task getTask() {
+        return task;
+    }
+
+    public void setTask(Task task) {
+        this.task = task;
+    }
+
+    public User getSubmittedBy() {
+        return submittedBy;
+    }
+
+    public void setSubmittedBy(User submittedBy) {
+        this.submittedBy = submittedBy;
+    }
+
+    public Integer getVersionNo() {
+        return versionNo;
+    }
+
+    public void setVersionNo(Integer versionNo) {
+        this.versionNo = versionNo;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public Integer getFileSizeKb() {
+        return fileSizeKb;
+    }
+
+    public void setFileSizeKb(Integer fileSizeKb) {
+        this.fileSizeKb = fileSizeKb;
+    }
+
+    public boolean isLate() {
+        return late;
+    }
+
+    public void setLate(boolean late) {
+        this.late = late;
+    }
+
+    public LocalDateTime getSubmittedAt() {
+        return submittedAt;
+    }
+
+    public void setSubmittedAt(LocalDateTime submittedAt) {
+        this.submittedAt = submittedAt;
+    }
 }
