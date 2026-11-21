@@ -1,0 +1,91 @@
+/*
+ * Uygulamaya özel küçük stil eklemeleri. Asıl tasarım Bootstrap 5'ten gelir.
+ * Bootstrap: hazır sınıflarla (btn, card, row, col-md-6 …) hızlı ve mobil uyumlu arayüz.
+ */
+:root {
+  --bs-primary: #1d4ed8;
+  --bs-primary-rgb: 29, 78, 216;
+  --bs-body-bg: #f6f7fb;
+  --bs-border-radius: 0.6rem;
+}
+
+body {
+  background: var(--bs-body-bg);
+}
+
+.btn-primary {
+  --bs-btn-bg: #1d4ed8;
+  --bs-btn-border-color: #1d4ed8;
+  --bs-btn-hover-bg: #1e40af;
+  --bs-btn-hover-border-color: #1e40af;
+  --bs-btn-active-bg: #1e3a8a;
+}
+
+.app-navbar .nav-link.active {
+  color: var(--bs-primary);
+  font-weight: 600;
+}
+
+.brand-mark {
+  display: inline-grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.5rem;
+  background: var(--bs-primary);
+  color: #fff;
+  font-size: 1rem;
+}
+
+.card {
+  border-color: #e5e7eb;
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
+}
+
+.stat-card .stat-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.login-bg {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1d4ed8 0%, #312e81 100%);
+}
+
+.slot-btn {
+  min-width: 7.5rem;
+}
+
+.timeline-item {
+  border-left: 3px solid #e5e7eb;
+  padding-left: 1rem;
+  position: relative;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -0.45rem;
+  top: 0.35rem;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  background: var(--bs-primary);
+}
+
+.text-pre-wrap {
+  white-space: pre-wrap;
+}
+
+/* Rapor sayfasını yazdırırken (PDF olarak kaydetme) menüyü ve düğmeleri gizle — FR-11 */
+@media print {
+  .app-navbar,
+  footer,
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #fff;
+  }
+}
